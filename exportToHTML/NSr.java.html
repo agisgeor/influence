@@ -1,0 +1,190 @@
+<html>
+<head>
+<title>NSr.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(128,128,128); font-style: italic; }
+.s1 { }
+.s2 { color: rgb(0,0,128); font-weight: bold; }
+.s3 { color: rgb(0,0,255); }
+.s4 { color: rgb(0,128,0); font-weight: bold; }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+NSr.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+
+<span class="s0">/** 
+ * Created by Lenovo on 16/3/2016. 
+ */</span><span class="s1"> 
+</span><span class="s2">import </span><span class="s1">com.google.common.primitives.Chars; 
+</span><span class="s2">import </span><span class="s1">gr.james.influence.algorithms.generators.BarabasiAlbertGenerator; 
+</span><span class="s2">import </span><span class="s1">gr.james.influence.api.Graph; 
+</span><span class="s2">import </span><span class="s1">gr.james.influence.graph.Edge; 
+</span><span class="s2">import </span><span class="s1">gr.james.influence.graph.MemoryGraph; 
+</span><span class="s2">import </span><span class="s1">gr.james.influence.algorithms.scoring.DeGroot; 
+</span><span class="s2">import </span><span class="s1">gr.james.influence.graph.Vertex; 
+ 
+</span><span class="s2">import </span><span class="s1">java.lang.reflect.Array; 
+</span><span class="s2">import </span><span class="s1">java.util.Arrays; 
+</span><span class="s2">import </span><span class="s1">gr.james.influence.util.collections.GraphState; 
+</span><span class="s2">import </span><span class="s1">java.lang.Double; 
+</span><span class="s2">import </span><span class="s1">java.util.ArrayList; 
+</span><span class="s2">import </span><span class="s1">java.util.Map; 
+</span><span class="s2">import </span><span class="s1">java.util.Arrays; 
+</span><span class="s2">import </span><span class="s1">java.util.Random; 
+</span><span class="s2">import </span><span class="s1">java.util.Random.*; 
+</span><span class="s2">import </span><span class="s1">java.io.*; 
+</span><span class="s2">import </span><span class="s1">java.lang.String.*; 
+</span><span class="s2">import </span><span class="s1">java.util.*; 
+</span><span class="s2">import </span><span class="s1">java.util.concurrent.ConcurrentHashMap; 
+</span><span class="s2">import </span><span class="s1">java.math.*; 
+</span><span class="s2">import </span><span class="s1">java.util.Arrays.*; 
+</span><span class="s2">public class </span><span class="s1">NSr { 
+    </span><span class="s2">public static void </span><span class="s1">main(String[] args) { 
+        Random rand = </span><span class="s2">new </span><span class="s1">Random(); 
+        Graph g = </span><span class="s2">new </span><span class="s1">MemoryGraph(); 
+        g = </span><span class="s2">new </span><span class="s1">BarabasiAlbertGenerator(</span><span class="s3">100</span><span class="s1">,</span><span class="s3">30</span><span class="s1">,</span><span class="s3">15</span><span class="s1">, </span><span class="s3">0.8</span><span class="s1">).generate(); 
+       </span><span class="s0">// g = new allconected(4).generate();</span><span class="s1"> 
+        System.out.println(g); 
+        </span><span class="s2">for </span><span class="s1">(Vertex v : g) { 
+            System.out.println(</span><span class="s4">&quot;Node id  &quot; </span><span class="s1">+ v.getId() + g.getOutEdges(v)); 
+        } 
+ 
+        GraphState&lt;Double&gt; State = </span><span class="s2">new </span><span class="s1">GraphState&lt;&gt;(); 
+        GraphState&lt;Double&gt; NSRState = </span><span class="s2">new </span><span class="s1">GraphState&lt;&gt;(); 
+       </span><span class="s0">/* for (Vertex v : g) { 
+            Map map1 = new HashMap(g.getOutEdges(v)); 
+ 
+            for (Map.Entry&lt;Vertex, Edge&gt; e : g.getOutEdges(v).entrySet()) { 
+                // System.out.println(&quot;Node1 id:&quot;+v.getId()+g.getOutEdges(v).keySet()); 
+                //System.out.println(&quot;Node2 id:&quot;+e.getKey().getId()+g.getOutEdges(e.getKey()).keySet()); 
+                //System.out.println(&quot;CommonNeighbors   &quot;+MISC.CommonNeighbors(g.getOutEdges(v).keySet(),g.getOutEdges(e.getKey()).keySet()));; 
+ 
+            } 
+        } 
+        Vertex k=g.getVertexFromIndex(0); 
+       // System.out.println(&quot;vertex id  :&quot;+k.getId()); 
+       /* Map map1 = new HashMap(g.getOutEdges(g.getVertexFromIndex(2))); 
+        Set s1 = map1.keySet(); 
+        Map newmap = new HashMap&lt;&gt;(); 
+        for (int i = 0; i &lt; 500; i++) { 
+            for (Vertex v : g) { 
+ 
+            } 
+ 
+        }*/</span><span class="s1"> 
+ 
+        </span><span class="s2">for </span><span class="s1">(Vertex v : g) { 
+ 
+            State.put(v, </span><span class="s3">0.5</span><span class="s1">); 
+            NSRState.put(v,</span><span class="s3">0.0</span><span class="s1">); 
+            </span><span class="s0">// System.out.println(State.getAsDouble(v));</span><span class="s1"> 
+            </span><span class="s0">// System.out.println(g.getOutEdges(v));</span><span class="s1"> 
+        } 
+        </span><span class="s0">// State.put(g.getRandomVertex(), 1.0);</span><span class="s1"> 
+       </span><span class="s0">//infect nodes</span><span class="s1"> 
+        State.put(g.getVertexFromIndex(</span><span class="s3">2</span><span class="s1">), </span><span class="s3">1.0</span><span class="s1">); 
+        NSRState.put(g.getVertexFromIndex(</span><span class="s3">2</span><span class="s1">), </span><span class="s3">1.0</span><span class="s1">); 
+        State.put(g.getVertexFromIndex(</span><span class="s3">40</span><span class="s1">), </span><span class="s3">1.0</span><span class="s1">); 
+        NSRState.put(g.getVertexFromIndex(</span><span class="s3">10</span><span class="s1">), </span><span class="s3">1.0</span><span class="s1">); 
+         State.put(g.getVertexFromIndex(</span><span class="s3">50</span><span class="s1">), </span><span class="s3">1.0</span><span class="s1">); 
+       NSRState.put(g.getVertexFromIndex(</span><span class="s3">50</span><span class="s1">), </span><span class="s3">1.0</span><span class="s1">); 
+        </span><span class="s0">//State.put(g.getVertexFromIndex(70), 1.0);</span><span class="s1"> 
+        </span><span class="s0">//State.put(g.getVertexFromIndex(40), 1.0);</span><span class="s1"> 
+        </span><span class="s0">// State.put(g.getVertexFromIndex(20), 1.0);</span><span class="s1"> 
+        </span><span class="s0">//System.out.println(State);</span><span class="s1"> 
+ 
+       </span><span class="s0">// System.out.println(&quot;key&quot; + State.get(g.getVertexFromIndex(2)));</span><span class="s1"> 
+        </span><span class="s0">//System.out.println(&quot;key&quot; + MISC.getKeysByValue(State, 1.0));</span><span class="s1"> 
+        </span><span class="s0">//g.getOutEdges(g.getVertexFromIndex(MISC.getKeysByValue(State,1.0)));</span><span class="s1"> 
+ 
+        </span><span class="s2">for </span><span class="s1">(Vertex v : MISC.getKeysByValue(State, </span><span class="s3">1.0</span><span class="s1">)) { 
+            System.out.println(</span><span class="s4">&quot;key2*&quot; </span><span class="s1">+ Arrays.toString(g.getOutEdges(v).keySet().toArray()) + State.get(v)); 
+        } 
+       </span><span class="s0">/* for (Vertex v : g) { 
+           // System.out.println(&quot;Vertex id  :&quot;  + v.getId()+&quot;  keyset  :&quot;+g.getOutEdges(v).keySet()); 
+           // System.out.println(&quot;in degree  :&quot;  + g.getOutDegree(v)+&quot;   out degree  :&quot;+g.getOutDegree(v)); 
+ 
+        }*/</span><span class="s1"> 
+ 
+       </span><span class="s0">/* double lij = 0.0; 
+        double wij = 00; 
+        for (Vertex v : MISC.getKeysByValue(State, 1.0)) { 
+            wij = 0; 
+            for (Map.Entry&lt;Vertex, Edge&gt; e : g.getOutEdges(v).entrySet()) { 
+                wij = (double) (MISC.CommonNeighbors(g.getOutEdges(v).keySet(), g.getOutEdges(e.getKey()).keySet())) / ((double) g.getOutEdges(v).size() + (double) g.getOutEdges(e.getKey()).size() + (double) MISC.CommonNeighbors(g.getOutEdges(v).keySet(), g.getOutEdges(e.getKey()).keySet()) - 2.0); 
+                //  System.out.println(&quot;wij&quot;  + wij); 
+                //  System.out.println(&quot;Misc.Common&quot;  +MISC.CommonNeighbors(g.getOutEdges(v).keySet(),g.getOutEdges(e.getKey()).keySet())); 
+                //  System.out.println(&quot;KJ&quot;  +g.getOutEdges(v).size()); 
+                //  System.out.println(&quot;KI&quot;  +g.getOutEdges(e.getKey()).size()); 
+            } 
+            //System.out.println(&quot;wij&quot; + wij); 
+        }*/</span><span class="s1"> 
+        </span><span class="s2">int </span><span class="s1">execturns=</span><span class="s3">1000</span><span class="s1">; 
+        </span><span class="s2">double</span><span class="s1">[][] S=SIR_NSR.execute(execturns,g,State,NSRState,</span><span class="s3">0</span><span class="s1">,</span><span class="s3">0.4</span><span class="s1">);; 
+              </span><span class="s0">//  S=SIR_DEGREE.execute(500,g,State,1);</span><span class="s1"> 
+        System.out.println(</span><span class="s4">&quot;NSR&quot; </span><span class="s1">+ Arrays.toString(S)); 
+        System.out.println(Arrays.deepToString(S).replaceAll(</span><span class="s4">&quot;],&quot;</span><span class="s1">, </span><span class="s4">&quot;],&quot; </span><span class="s1">+ System.getProperty(</span><span class="s4">&quot;line.separator&quot;</span><span class="s1">))); 
+        </span><span class="s2">double</span><span class="s1">[] S1=</span><span class="s2">new double</span><span class="s1">[execturns];</span><span class="s2">double</span><span class="s1">[] S2=</span><span class="s2">new double</span><span class="s1">[execturns]; 
+        </span><span class="s2">for</span><span class="s1">(</span><span class="s2">int </span><span class="s1">i=</span><span class="s3">0</span><span class="s1">;i&lt;execturns;i++){ 
+            S1[i]=S[i][</span><span class="s3">0</span><span class="s1">]; 
+            S2[i]=S[i][</span><span class="s3">1</span><span class="s1">]; 
+        } 
+        </span><span class="s2">double </span><span class="s1">max=</span><span class="s3">0</span><span class="s1">; 
+        </span><span class="s2">for </span><span class="s1">(</span><span class="s2">int </span><span class="s1">counter = </span><span class="s3">1</span><span class="s1">; counter &lt; S1.length; counter++) 
+        { 
+            </span><span class="s2">if </span><span class="s1">(S1[counter] &gt; max) 
+            { 
+                max = S1[counter]; 
+            } 
+        } 
+        System.out.println(</span><span class="s4">&quot;Max(S) = &quot;</span><span class="s1">+max); 
+ 
+       </span><span class="s0">// System.out.println(&quot;Max(S) = &quot; + Arrays.asList(S).size());</span><span class="s1"> 
+   </span><span class="s0">/* 
+//iterate for i turns 
+        for (int i = 0; i &lt; 30; i++) { 
+//select only infected nodes value=1 
+            System.out.println(&quot;  number of infected nodes  :&quot; +MISC.getKeysByValue(State, 1.0).size()+&quot;  number of stiflers  :&quot;+MISC.getKeysByValue(State, 0.0).size()+&quot;  number of ignorants nodes   :&quot;+MISC.getKeysByValue(State, 0.5).size()); 
+            for (Vertex v : MISC.getKeysByValue(State, 1.0)) { 
+                int Vertextoinfectid=0; 
+               // System.out.println(&quot;infected nodes&quot; + State); 
+//immunization 
+//select random edge to spread the infection 
+                Object[] array =  g.getOutEdges(v).keySet().toArray(); 
+               Vertextoinfectid=Integer.parseInt(array[rand.nextInt(array.length)].toString())-1; 
+               // System.out.println(&quot;array&quot; +Arrays.toString(g.getOutEdges(v).keySet().toArray()) ); 
+               // System.out.println(&quot;vertex source id&quot;+v.getId() ); 
+               // System.out.println(&quot;vertex to infect id&quot;+(Vertextoinfectid+1) ); 
+ 
+//calculate lij of node randomly selected 
+                MISC.lij(g,State,v,g.getVertexFromIndex(Vertextoinfectid)); 
+                //System.out.println(&quot;lij&quot; +  MISC.lij(g,State,v,g.getVertexFromIndex(Vertextoinfectid))); 
+                //infecting 
+               if(State.get(g.getVertexFromIndex(Vertextoinfectid))==0.0||State.get(g.getVertexFromIndex(Vertextoinfectid))==1.0   ){ 
+                   if(MISC.infecting(0.01 )==true){ 
+                       State.put(v,0.0); 
+                   } 
+               } 
+                if(MISC.infecting( MISC.lij(g, State, v, g.getVertexFromIndex(Vertextoinfectid)))==true){ 
+                    if(State.get(g.getVertexFromIndex(Vertextoinfectid))!=0.0)State.put(g.getVertexFromIndex(Vertextoinfectid),1.0); 
+                } 
+                //decaying 
+                if(MISC.infecting(0.008 )==true)State.put(v,0.0); 
+//to do validate lij calculation method , find a way to infect(probability),create simple SIR model ,integrate a,calculate NSR,finish 
+ 
+            } 
+ 
+        }*/</span><span class="s1"> 
+ 
+ 
+    } 
+}</span></pre>
+</body>
+</html>
